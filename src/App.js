@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 import Login from './components/Login';
 import TodoApp from './components/TodoApp';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
 
@@ -14,12 +14,12 @@ class App extends Component {
     }
     render() {
         const LoginView = () => (
-            <Login/>
+            (!this.state.isLoggedIn)?<Login/>:<TodoApp/>
         );
         const TodoAppView = () => (
-            <TodoApp/>
+            (this.state.isLoggedIn)?<TodoApp/>:<Login/>
         );
-        
+
         return (
             <Router>
                 <div className="App">
@@ -27,15 +27,8 @@ class App extends Component {
                         <img src={logo} className="App-logo" alt="logo"/>
                         <h1 className="App-title">TODO React App</h1>
                     </header>
-
                     <br/>
                     <br/>
-
-                    <ul>
-                        <li><Link to="/">Login</Link></li>
-                        <li><Link to="/todo">Todo</Link></li>
-                    </ul>
-
                     <div>
                         <Route exact path="/" component={LoginView}/>
                         <Route path="/todo" component={TodoAppView}/>
