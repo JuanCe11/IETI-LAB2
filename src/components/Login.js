@@ -29,7 +29,7 @@ export default class Login extends Component{
                             <LockIcon />
                         </Avatar>
                         <Typography variant="h2">Sign in</Typography>
-                        <form className="form">
+                        <form className="form" onSubmit={this.handleSubmit}>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="email">Email Address</InputLabel>
                                 <Input id="email" name="email" autoComplete="email" onChange={this.handleChange}autoFocus />
@@ -40,7 +40,9 @@ export default class Login extends Component{
                                     name="password"
                                     type="password"
                                     id="password"
+                                    value={this.state.password}
                                     autoComplete="current-password"
+                                    onChange={this.handleChange}
                                 />
                             </FormControl>
                             <Button
@@ -59,12 +61,20 @@ export default class Login extends Component{
         );
     }
     handleChange(e){
+        console.log("changing",e.target.name,"---",e.target.value);
+        console.log("antes",this.state.password);
         this.setState({[e.target.name]: e.target.value,});
     }
     handleSubmit(e) {
+        e.preventDefault();
+        console.log("Entro")
+        console.log(this.state.email,"---",this.state.password);
         if(this.state.email.length && this.state.password.length){
-            console.log(this.state.email,"---",this.state.password);
-            return;
+            console.log("Login valido");
+            localStorage.setItem('user', this.state.email);
+            localStorage.setItem('pass', this.state.password);
         }
+        console.log("Login invalido");
+        this.props.validateLogin();
     }
 }

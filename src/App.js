@@ -10,16 +10,21 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isLoggedIn: false};
+        this.state = {isLoggedIn: localStorage.getItem('user') !== null};
     }
+
+    validateLogin = ()=>{
+        this.setState({isLoggedIn: localStorage.getItem('user') !== null})
+    }
+
     render() {
         const LoginView = () => (
-            (!this.state.isLoggedIn)?<Login/>:<TodoApp/>
+            (!this.state.isLoggedIn)?<Login validateLogin={this.validateLogin}/>:<TodoApp validateLogin={this.validateLogin}/>
         );
         const TodoAppView = () => (
-            (this.state.isLoggedIn)?<TodoApp/>:<Login/>
+            (this.state.isLoggedIn)?<TodoApp validateLogin={this.validateLogin}/>:<Login validateLogin={this.validateLogin}/>
         );
-
+        
         return (
             <Router>
                 <div className="App">

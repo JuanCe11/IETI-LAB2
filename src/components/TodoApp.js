@@ -12,6 +12,7 @@ export default class TodoApp extends Component{
         this.handlePriorityChange = this.handlePriorityChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
     }
 
     handleTextChange(e) {
@@ -30,6 +31,11 @@ export default class TodoApp extends Component{
         this.setState({
             dueDate: date
         });
+    }
+
+    handleOnClick() {
+        localStorage.clear();
+        this.props.validateLogin();
     }
 
     handleSubmit(e) {
@@ -57,6 +63,9 @@ export default class TodoApp extends Component{
     render(){
         return (
             <div className="App">
+                <button onClick={this.handleOnClick}>
+                    Logout
+                </button>
                 <form onSubmit={this.handleSubmit} className="todo-form">
                     <h3>New TODO</h3>
                     <label htmlFor="text" className="right-margin">
