@@ -1,10 +1,6 @@
 import React from 'react';
 
-export class Todo extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
+export class Todo extends React.Component {    
 
     render() {
         return (
